@@ -1,0 +1,27 @@
+name: setting up environment
+
+on: [push]
+    
+env:
+ username: techyminati
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: Checkout
+         uses: actions/checkout@main
+
+       - name: initialization
+         continue-on-error: true
+         run: |
+           sudo apt install device-tree-compiler
+           sudo apt install bc
+           sudo -E apt-get clean
+
+       - name: Compile Kernel
+         continue-on-error: true
+         run: |
+           ls
+           curl -L ${{ secrets.BUILD }} > build.sh
+           bash build.sh
